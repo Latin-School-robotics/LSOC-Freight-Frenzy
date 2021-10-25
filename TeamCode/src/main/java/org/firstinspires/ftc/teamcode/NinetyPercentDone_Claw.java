@@ -36,8 +36,20 @@ public class NinetyPercentDone_Claw extends OpMode {
     @Override
     public void loop() {
 
+        //arm code
         armController.MoveSlideUnrestricted(gamepad2.left_stick_y);
-        clawController.MoveSlideUnrestricted(gamepad2.left_trigger);
+
+        //claw speed setter
+        float clawSpeed = 0;
+        if(gamepad2.y){
+            clawSpeed = 0.1f;
+        }
+        else if(gamepad2.a){
+            clawSpeed = -0.1f;
+        }
+
+        //moves claw
+        clawController.MoveSlideUnrestricted(clawSpeed);
 
 
     }

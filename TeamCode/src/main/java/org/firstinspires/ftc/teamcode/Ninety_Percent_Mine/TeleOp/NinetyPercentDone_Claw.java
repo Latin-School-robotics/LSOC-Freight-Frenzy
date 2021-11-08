@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Ninety_Percent_Mine.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -36,6 +37,9 @@ public class NinetyPercentDone_Claw extends OpMode {
         DcMotor front_right_drive = hardwareMap.dcMotor.get("front right drive");
         DcMotor back_left_drive = hardwareMap.dcMotor.get("back left drive");
         DcMotor back_right_drive = hardwareMap.dcMotor.get("back right drive");
+
+        front_left_drive.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_left_drive.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.dt = new BasicOpTrain(front_left_drive, front_right_drive, back_left_drive, back_right_drive);
 
@@ -75,10 +79,10 @@ public class NinetyPercentDone_Claw extends OpMode {
         armController.MoveSlideUnrestricted(armSpeed);
         clawController.MoveSlideUnrestricted(clawSpeed);
 
-        this.forwardDrive = - gamepad1.right_stick_y;
+        this.forwardDrive = -gamepad2.right_stick_y;
 
-        this.panDrive = gamepad1.right_stick_x;
-        this.rotation = gamepad1.left_stick_x;
+        this.panDrive = gamepad2.right_stick_x;
+        this.rotation = gamepad2.left_stick_x;
 
         this.dt.travel(this.forwardDrive, this.panDrive, this.rotation);
 

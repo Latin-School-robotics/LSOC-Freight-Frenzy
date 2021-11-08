@@ -26,7 +26,7 @@ public class SidBotClawTest extends OpMode {
         DcMotor arm = hardwareMap.dcMotor.get("arm");
 
         // Init Claw Object
-        this.clawObject = new ServoClaw(claw,0.33f,1);
+        this.clawObject = new ServoClaw(claw,0,1);
 
         // Init Arm Object
         // NOTE: Arm is unrestricted

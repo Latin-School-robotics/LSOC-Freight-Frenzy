@@ -1,9 +1,12 @@
-org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-org.firstinspires.ftc.teamcode.OldCode.JacksonDriveTrain;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.OldCode.JacksonDriveTrain;
+
 @Autonomous(name = "AviAuto1", group = "Autos")
-public class AviAuto1 extends LinearOpMode{
+public class AviAuto1 extends LinearOpMode {
     JacksonDriveTrain dt;
     @Override
     public void runOpMode() {

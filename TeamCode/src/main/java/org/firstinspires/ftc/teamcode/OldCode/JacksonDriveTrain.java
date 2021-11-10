@@ -19,6 +19,7 @@ package org.firstinspires.ftc.teamcode.OldCode;
 import static java.lang.Math.*;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -47,20 +48,21 @@ public class JacksonDriveTrain{
      **/
 
     DcMotor front_left_motor, front_right_motor, rear_left_motor, rear_right_motor;
+    DcMotor spinner;
     // DcMotor rope;
     // Servo grabL, grabR;
     // Servo claw;
     double internalHeading;
     DcMotor[] motorArray = new DcMotor[4];
-    // ColorSensor color;
+    ColorSensor color;
     VoltageSensor[] voltageSensors;
+    //Servo spinner;
     // -750
     BNO055IMU imu;
     Orientation lastAngles = new Orientation();
     double globalAngle, startAngle;
     final static double DEGREES_AT_FULL_POWER = 30;
     final static double STANDARD_VOLTAGE = 13;
-
     LinearOpMode op;
     long wait = 500;
     final static double[][] MOTOR_SIGNS = {
@@ -91,6 +93,7 @@ public class JacksonDriveTrain{
         // grabL = op.hardwareMap.servo.get("hand servo left");
         // grabR = op.hardwareMap.servo.get("hand servo right");
         // claw = op.hardwareMap.servo.get("claw");
+        //spinner = op.hardwareMap.servo.get("spinner");
         front_left_motor = op.hardwareMap.dcMotor.get("front left drive");
         front_right_motor = op.hardwareMap.dcMotor.get("front right drive");
         rear_left_motor = op.hardwareMap.dcMotor.get("back left drive");
@@ -104,6 +107,12 @@ public class JacksonDriveTrain{
             m.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             m.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
+        front_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rear_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rear_right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        
+        spinner = op.hardwareMap.dcMotor.get("spinner");
+        spinner.setDirection(DcMotorSimple.Direction.REVERSE);
         // TODO: get it to work with encoders
         // front_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         // front_left_motor.setPower(1);
@@ -138,8 +147,8 @@ public class JacksonDriveTrain{
         op.telemetry.addData("Initialized: ", "Interial Movement Unit");
         op.telemetry.update();
 
-        // color = op.hardwareMap.colorSensor.get("color");
-        // color.enableLed(true);
+        color = op.hardwareMap.colorSensor.get("color");
+        color.enableLed(true);
     }
 
     /**
@@ -151,7 +160,11 @@ public class JacksonDriveTrain{
     public DcMotor[] getMotors() {
         return motorArray;
     }
-
+    public void spinCarousel() {
+        spinner.setPower(0.7);
+        op.sleep(2400);
+        spinner.setPower(0);
+    }
 
     /**
      *
@@ -196,9 +209,14 @@ public class JacksonDriveTrain{
         return internalHeading;
     }
 
-    // public boolean isSkyStone(){
-    //     return (color.red() + color.green() < 2.9 * color.blue());
-    // }
+    public boolean isTS() {
+        op.telemetry.addData("Green: ", color.green());
+        op.telemetry.addData("Blue: ", color.blue());
+        op.telemetry.addData("Red: ", color.red());
+        op.telemetry.addData("isTS: ", color.green() > 0.6*(color.blue() + color.red()));
+        //op.telemetry.update();
+        return color.green() > 0.6*(color.blue() + color.red());
+    }
 
     // public void ropePos(int target, double speed){
     //     rope.setTargetPosition(target);

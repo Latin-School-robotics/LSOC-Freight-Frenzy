@@ -14,6 +14,9 @@ public class NinetyPercentMine_TeleOp extends OpMode {
 
     BasicOpTrain dt;
 
+    float slowDownModP1;
+    float slowDownModP2;
+
     //creating linear slide objects
     LinearSlide armController;
     LinearSlide clawController;
@@ -57,20 +60,24 @@ public class NinetyPercentMine_TeleOp extends OpMode {
     @Override
     public void loop() {
 
+        //calculates slowdown modifiers
+        float slowDownModP1 = 1 - 0.85f * gamepad2.left_trigger;
+        float slowDownModP2 = 1 - 0.85f * gamepad2.right_trigger;
+
         //calculates arm speed
-        float armSpeed = (gamepad2.dpad_down ? 0.5f : 0) + (gamepad2.dpad_up ? -0.5f : 0);
+        float armSpeed = ((gamepad2.dpad_down ? 0.5f : 0) + (gamepad2.dpad_up ? -0.5f : 0)) * this.slowDownModP1;
 
         //calculates claw speed
-        float clawSpeed = (gamepad2.y ? 0.5f : 0) + (gamepad2.a ? -0.5f : 0);
+        float clawSpeed = ((gamepad2.y ? 0.5f : 0) + (gamepad2.a ? -0.5f : 0)) * this.slowDownModP1;
 
         //moves arm and claw
         armController.MoveSlideUnrestricted(armSpeed);
         clawController.MoveSlideUnrestricted(clawSpeed);
 
         //calculates driving variables
-        this.forwardDrive = -gamepad2.right_stick_y;
-        this.panDrive = gamepad2.right_stick_x;
-        this.rotation = gamepad2.left_stick_x;
+        this.forwardDrive = -gamepad2.right_stick_y * this.slowDownModP2;
+        this.panDrive = gamepad2.right_stick_x * this.slowDownModP2;
+        this.rotation = gamepad2.left_stick_x * this.slowDownModP2;
 
         //moves wheels
         this.dt.travel(this.forwardDrive, this.panDrive, this.rotation);

@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.Utility.BasicOpTrain;
 import org.firstinspires.ftc.teamcode.Utility.LinearSlide;
 
 
-@TeleOp(name="Ninety Claw", group="TeleOp")
-public class NinetyPercentDone_Claw extends OpMode {
+@TeleOp(name="Ninety TeleOp", group="TeleOp")
+public class NinetyPercentMine_TeleOp extends OpMode {
 
     BasicOpTrain dt;
 
@@ -57,39 +57,32 @@ public class NinetyPercentDone_Claw extends OpMode {
     @Override
     public void loop() {
 
-        //arm code
-        float armSpeed = 0;
-        if(gamepad2.dpad_up){
-            armSpeed = -0.5f;
-        }
-        else if(gamepad2.dpad_down){
-            armSpeed = 0.5f;
-        }
+        //sets arm speed
+        float armSpeed = (gamepad2.dpad_down ? 0.5f : 0) + (gamepad2.dpad_up ? -0.5f : 0);
 
-        //claw speed setter
-        float clawSpeed = 0;
-        if(gamepad2.y){
-            clawSpeed = 0.5f;
-        }
-        else if(gamepad2.a){
-            clawSpeed = -0.5f;
-        }
+        //sets claw speed
+        float clawSpeed = (gamepad2.y ? 0.5f : 0) + (gamepad2.a ? -0.5f : 0);
 
-        //moves things
+        //moves arm and claw
         armController.MoveSlideUnrestricted(armSpeed);
         clawController.MoveSlideUnrestricted(clawSpeed);
 
+        //gets driving variables
         this.forwardDrive = -gamepad2.right_stick_y;
-
         this.panDrive = gamepad2.right_stick_x;
         this.rotation = gamepad2.left_stick_x;
 
+        //moves wheels
         this.dt.travel(this.forwardDrive, this.panDrive, this.rotation);
 
+        //telemetry
         telemetry.addData("Driving...", "");
         telemetry.addData("Forward Drive", forwardDrive);
         telemetry.addData("Pan Drive", panDrive);
         telemetry.addData("Rotation", rotation);
+        telemetry.addData("Arm", armSpeed);
+        telemetry.addData("Claw", clawSpeed);
+
         telemetry.update();
     }
 }

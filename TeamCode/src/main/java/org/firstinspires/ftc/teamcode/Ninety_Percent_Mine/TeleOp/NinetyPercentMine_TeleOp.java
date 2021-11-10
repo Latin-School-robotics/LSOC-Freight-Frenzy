@@ -57,17 +57,17 @@ public class NinetyPercentMine_TeleOp extends OpMode {
     @Override
     public void loop() {
 
-        //sets arm speed
+        //calculates arm speed
         float armSpeed = (gamepad2.dpad_down ? 0.5f : 0) + (gamepad2.dpad_up ? -0.5f : 0);
 
-        //sets claw speed
+        //calculates claw speed
         float clawSpeed = (gamepad2.y ? 0.5f : 0) + (gamepad2.a ? -0.5f : 0);
 
         //moves arm and claw
         armController.MoveSlideUnrestricted(armSpeed);
         clawController.MoveSlideUnrestricted(clawSpeed);
 
-        //gets driving variables
+        //calculates driving variables
         this.forwardDrive = -gamepad2.right_stick_y;
         this.panDrive = gamepad2.right_stick_x;
         this.rotation = gamepad2.left_stick_x;

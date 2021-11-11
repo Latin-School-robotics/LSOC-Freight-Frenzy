@@ -61,23 +61,25 @@ public class NinetyPercentMine_TeleOp extends OpMode {
     public void loop() {
 
         //calculates slowdown modifiers
-        float slowDownModP1 = 1 - 0.85f * gamepad2.left_trigger;
-        float slowDownModP2 = 1 - 0.85f * gamepad2.right_trigger;
+        this.slowDownModP1 = 1 - 0.85f * gamepad1.right_trigger;
+        // float slowDownModP2 = 1 - 0.85f * gamepad1.left_trigger;
+        // float slowDownModP1 = 1f;
+        this.slowDownModP2 = 1f;
 
         //calculates arm speed
-        float armSpeed = ((gamepad2.dpad_down ? 0.5f : 0) + (gamepad2.dpad_up ? -0.5f : 0)) * this.slowDownModP1;
+        float armSpeed = ((gamepad1.dpad_down ? 0.5f : 0) + (gamepad1.dpad_up ? -0.5f : 0)) * this.slowDownModP1;
 
         //calculates claw speed
-        float clawSpeed = ((gamepad2.y ? 0.5f : 0) + (gamepad2.a ? -0.5f : 0)) * this.slowDownModP1;
+        float clawSpeed = ((gamepad1.y ? 0.5f : 0) + (gamepad1.a ? -0.5f : 0)) * this.slowDownModP1;
 
         //moves arm and claw
-        armController.MoveSlideUnrestricted(armSpeed);
-        clawController.MoveSlideUnrestricted(clawSpeed);
+        armController.MoveSlideUnrestricted(armSpeed * slowDownModP1);
+        clawController.MoveSlideUnrestricted(clawSpeed * slowDownModP1);
 
         //calculates driving variables
-        this.forwardDrive = -gamepad2.right_stick_y * this.slowDownModP2;
-        this.panDrive = gamepad2.right_stick_x * this.slowDownModP2;
-        this.rotation = gamepad2.left_stick_x * this.slowDownModP2;
+        this.forwardDrive = -gamepad1.left_stick_y * slowDownModP1;
+        this.panDrive = gamepad1.left_stick_x * slowDownModP1;
+        this.rotation = gamepad1.right_stick_x * slowDownModP1;
 
         //moves wheels
         this.dt.travel(this.forwardDrive, this.panDrive, this.rotation);
@@ -89,6 +91,7 @@ public class NinetyPercentMine_TeleOp extends OpMode {
         telemetry.addData("Rotation", rotation);
         telemetry.addData("Arm", armSpeed);
         telemetry.addData("Claw", clawSpeed);
+        telemetry.addData("Slowdown Mod", this.slowDownModP1);
 
         telemetry.update();
     }

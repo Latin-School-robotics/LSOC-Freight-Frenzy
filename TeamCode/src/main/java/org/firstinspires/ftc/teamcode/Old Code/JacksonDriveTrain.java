@@ -48,6 +48,7 @@ public class JacksonDriveTrain{
      **/
 
     DcMotor front_left_motor, front_right_motor, rear_left_motor, rear_right_motor;
+    DcMotor arm;
     DcMotor spinner;
     // DcMotor rope;
     // Servo grabL, grabR;
@@ -98,6 +99,7 @@ public class JacksonDriveTrain{
         front_right_motor = op.hardwareMap.dcMotor.get("front right drive");
         rear_left_motor = op.hardwareMap.dcMotor.get("back left drive");
         rear_right_motor = op.hardwareMap.dcMotor.get("back right drive");
+        arm = op.hardwareMap.dcMotor.get("arm");
         motorArray[0] = front_left_motor;
         motorArray[1] = front_right_motor;
         motorArray[2] = rear_left_motor;
@@ -113,24 +115,6 @@ public class JacksonDriveTrain{
         
         spinner = op.hardwareMap.dcMotor.get("spinner");
         spinner.setDirection(DcMotorSimple.Direction.REVERSE);
-        // TODO: get it to work with encoders
-        // front_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // front_left_motor.setPower(1);
-
-        // front_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // front_right_motor.setPower(1);
-
-        // rear_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // rear_left_motor.setPower(1);
-
-        // rear_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // rear_right_motor.setPower(1);
-
-        // rope = op.hardwareMap.dcMotor.get("vertical elevator");
-        // rope.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // rope.setTargetPosition(-260);
-
-        // rope.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
@@ -165,7 +149,30 @@ public class JacksonDriveTrain{
         op.sleep(2400);
         spinner.setPower(0);
     }
-
+    // flip the arm backwards
+    public void initArm() {
+        arm.setPower(0.4);
+        op.sleep(5000);
+        arm.setPower(-0.4);
+        op.sleep(800);
+    }
+    public void setArm(int pos) {
+        // highest level
+        if (pos == 0) {
+            arm.setPower(-0.6);
+            op.sleep(1000);
+            arm.setPower(-0.3);
+            op.sleep(2500);
+        }
+        // mid level
+        if (pos == 1) {
+            
+        }
+        // lowest level
+        if (pos == 2) {
+            
+        }
+    }
     /**
      *
      * driveInDirection()
@@ -217,67 +224,7 @@ public class JacksonDriveTrain{
         //op.telemetry.update();
         return color.green() > 0.6*(color.blue() + color.red());
     }
-
-    // public void ropePos(int target, double speed){
-    //     rope.setTargetPosition(target);
-    //     rope.setPower(speed);
-
-    // }
-
-    // public void claw (boolean close){
-    //     claw.setPosition(close ? 1 : 0);
-    // }
-
-    // public void moveGrabs (boolean grab) {
-    //         // to go down grab is true
-    //         // to go up grab is false
-    //     grabL.setPosition(grab ? 1 : 0);
-    //     grabR.setPosition(grab ? 0 : 1);
-    // }
-
-    /*public double tareHeading() {
-        internalHeading = 0;
-    }*/
-
-    /*private correctHeading() {
-        internalHeading = internalHeading % (2*Math.PI);
-    }*/
-
-    /*
-     * drive method takes in distance you want to travel as a parameter, and it
-     * drives in the current direction that distance
-     */
-   /* public void drive(double distance) {
-        motorArray[0].setDirection(DcMotorSimple.Direction.REVERSE);
-        motorArray[2].setDirection(DcMotorSimple.Direction.REVERSE);
-        // 1440 * d / 10.16pi
-        // motorArray order is fL, bL, fR, bR
-        // signum just takes the sign (+/-) of the input
-        double sign = Math.signum(distance);
-        // setTargetPosition itself will not go backwards. You must set power to
-        // negative. Use the signum for this.
-        // TODO: Will this method allow the motors to move concurrently?
-        boolean moving = true;
-         for (DcMotor dm : motorArray) {
-            dm.setTargetPosition((int)(dm.getCurrentPosition() + (360 * sign * distance) / (Math.PI * 10.16)));
-         }
-        while (moving){
-        for (DcMotor dm : motorArray) {
-          //  op.telemetry.addData("target", dm.getTargetPosition());
-        //    op.telemetry.addData("current", dm.getCurrentPosition());
-          //  op.telemetry.addData("testing", moving);
-
-            dm.setPower(0.4*sign);
-            dm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            if (dm.getTargetPosition() < dm.getCurrentPosition() ) {
-                moving = false;
-            }
-        }
-        op.telemetry.update();
-        }
-    }*/
-
+    
     /**
      resetAngle()
 

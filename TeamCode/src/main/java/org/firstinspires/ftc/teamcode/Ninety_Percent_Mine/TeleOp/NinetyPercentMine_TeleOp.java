@@ -77,7 +77,7 @@ public class NinetyPercentMine_TeleOp extends OpMode {
         float clawSpeed = ((gamepad1.b ? 0.5f : 0) + (gamepad1.a ? -0.5f : 0)) * this.slowDownModP1;
 
         //calculates spinner speed
-        float spinnerSpeed = (gamepad1.y ? 0.5f : 0) * this.slowDownModP1;
+        float spinnerSpeed = (gamepad1.y ? -1f : 0) * this.slowDownModP1;
 
 
         //moves arm and claw

@@ -20,6 +20,7 @@ public class NinetyPercentMine_TeleOp extends OpMode {
     //creating linear slide objects
     LinearSlide armController;
     LinearSlide clawController;
+    LinearSlide spinnerController;
 
     float forwardDrive;
     float panDrive;
@@ -35,6 +36,7 @@ public class NinetyPercentMine_TeleOp extends OpMode {
         //get motors from hardware map
         DcMotor arm = hardwareMap.dcMotor.get("arm");
         DcMotor claw = hardwareMap.dcMotor.get("claw");
+        DcMotor spinner = hardwareMap.dcMotor.get("spinner");
 
         DcMotor front_left_drive = hardwareMap.dcMotor.get("front left drive");
         DcMotor front_right_drive = hardwareMap.dcMotor.get("front right drive");
@@ -49,6 +51,8 @@ public class NinetyPercentMine_TeleOp extends OpMode {
         //declare linear slide controllers
         armController = new LinearSlide(arm, 0,360);
         clawController = new LinearSlide(claw, 0,360);
+        spinnerController = new LinearSlide(spinner, 0,360);
+
 
         //telemetry b
         telemetry.addData("Ready for launch!" , "＼(≧▽≦)／");
@@ -70,11 +74,17 @@ public class NinetyPercentMine_TeleOp extends OpMode {
         float armSpeed = ((gamepad1.dpad_down ? 0.5f : 0) + (gamepad1.dpad_up ? -0.5f : 0)) * this.slowDownModP1;
 
         //calculates claw speed
-        float clawSpeed = ((gamepad1.y ? 0.5f : 0) + (gamepad1.a ? -0.5f : 0)) * this.slowDownModP1;
+        float clawSpeed = ((gamepad1.b ? 0.5f : 0) + (gamepad1.a ? -0.5f : 0)) * this.slowDownModP1;
+
+        //calculates spinner speed
+        float spinnerSpeed = (gamepad1.y ? 0.5f : 0) * this.slowDownModP1;
+
 
         //moves arm and claw
         armController.MoveSlideUnrestricted(armSpeed * slowDownModP1);
         clawController.MoveSlideUnrestricted(clawSpeed * slowDownModP1);
+        spinnerController.MoveSlideUnrestricted(spinnerSpeed * slowDownModP1);
+
 
         //calculates driving variables
         this.forwardDrive = -gamepad1.left_stick_y * slowDownModP1;

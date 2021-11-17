@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.botdon.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -14,8 +15,9 @@ public class Botdon extends OpMode {
 
     //Variables
     BasicOpTrain dt;
-  
-    LinearSlide elevator;
+    
+    DcMotor arm;
+    DcMotor spinner;
     ServoClaw clawservo;
 
     float slowdownModifierp1;
@@ -37,17 +39,21 @@ public class Botdon extends OpMode {
         DcMotor front_right_drive = hardwareMap.dcMotor.get("front right drive");
         DcMotor back_left_drive = hardwareMap.dcMotor.get("back left drive");
         DcMotor back_right_drive = hardwareMap.dcMotor.get("back right drive");
+        front_left_drive.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_left_drive.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_right_drive.setDirection(DcMotorSimple.Direction.REVERSE);
+        arm = hardwareMap.dcMotor.get("arm");
+        spinner = hardwareMap.dcMotor.get("spinner");
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        Servo claw_servo = hardwareMap.servo.get("claw servo");
-
-        DcMotor elevator_motor = hardwareMap.dcMotor.get("elevator");
+        Servo claw_servo = hardwareMap.servo.get("claw");
 
         //Init Code
         this.dt = new BasicOpTrain(front_left_drive, front_right_drive, back_left_drive, back_right_drive);
-        this.elevator = new LinearSlide(elevator_motor, 0,360);
+        // this.elevator = new LinearSlide(elevator_motor, 0,360);
 
         //IMPORTANT: Declare claw range constraints below
-        this.clawservo = new ServoClaw(claw_servo, .25f, .75f);
+        this.clawservo = new ServoClaw(claw_servo, 0f, .5f);
 
         //Telemetry B
         telemetry.addData("Ready for launch!" , "＼(≧▽≦)／");
@@ -67,7 +73,7 @@ public class Botdon extends OpMode {
         this.panDrive = gamepad1.right_stick_x * this.slowdownModifierp1;
         this.rotation = gamepad1.left_stick_x * this.slowdownModifierp1;
 
-        this.elevatorSpeed = gamepad2.right_stick_y * this.slowdownModifierp2;
+        // this.elevatorSpeed = gamepad2.right_stick_y * this.slowdownModifierp2;
 
         //Manage Driving
 
@@ -75,11 +81,12 @@ public class Botdon extends OpMode {
 
         //Manage Linear Slide
 
-        elevator.MoveSlideUnrestricted(this.elevatorSpeed);
-
+        arm.setPower(gamepad2.left_stick_y * this.slowdownModifierp2);
+        
+        spinner.setPower(gamepad2.right_bumper ? -1 : 0);
         //Manage Claw
 
-        clawservo.actuateToPercent(gamepad2.right_trigger * this.slowdownModifierp2);
+        clawservo.actuateToPercent(1 - gamepad2.right_trigger);
 
         //Telemetry
 

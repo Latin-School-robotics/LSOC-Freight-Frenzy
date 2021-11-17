@@ -1,26 +1,27 @@
 package org.firstinspires.ftc.teamcode.Utility;
+
 import com.qualcomm.ftccommon.SoundPlayer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import java.io.File;
+
 public class SoundPlay {
 
         // Point to sound files on the phone's drive
-        private File filepath;
+        private File file;
         private OpMode op;
 
-        public SoundPlay(File filepath, OpMode op) {
-            this.filepath = filepath;
+        public SoundPlay(String filepath, OpMode op) {
+            this.file = new File(filepath);
             this.op = op;
         }
 
-        public void playsound() {
-            if (this.filepath.exists()) {
-                op.telemetry.addData("the crap exists,", "pog");
+        public void playsound() throws Exception {
+            if (this.file.exists()) {
+                SoundPlayer.getInstance().startPlaying(op.hardwareMap.appContext, file);
+                op.telemetry.addData("Playing", "Audio");
                 op.telemetry.update();
-                SoundPlayer.getInstance().startPlaying(op.hardwareMap.appContext, filepath);
             } else {
-                op.telemetry.addData("Imbecile", "Can't find le file");
-                op.telemetry.update();
+                throw new Exception("File not Found");
             }
         }
 }

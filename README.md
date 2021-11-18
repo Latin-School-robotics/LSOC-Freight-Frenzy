@@ -73,6 +73,7 @@ In order to program the robot, you will need to feel comfortable with these two 
 2. Object oriented programing 
 
 If you do not feel comfortable with one or both of these concepts, I'd highly recomend checking out a few tutorials before proceeding.
+You can either do a codeacademy course, or check out these two tutorials on [Java]("https://www.youtube.com/watch?v=eIrMbAQSU34") and [OOP]("https://www.youtube.com/watch?v=cXj1hHdMNk4")
 
 Next, follow this tutorial to learn how to use [Android Studio](https://github.com/FIRST-Tech-Challenge/FtcRobotController/wiki/Android-Studio-Tutorial)
 

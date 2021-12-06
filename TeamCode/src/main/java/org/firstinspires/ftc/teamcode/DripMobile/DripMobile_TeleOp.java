@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.DripMobile.TeleOp;
+package org.firstinspires.ftc.teamcode.DripMobile;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -43,7 +43,7 @@ public class DripMobile_TeleOp extends OpMode {
         DcMotor claw = hardwareMap.dcMotor.get("star");
         DcMotor spinner = hardwareMap.dcMotor.get("spinner");
 
-        Servo bucket = hardwareMap.servo,get("Bucket");
+        Servo bucket = hardwareMap.servo.get("Bucket");
         Servo scooper = hardwareMap.servo.get("Scooper");
 
         DcMotor front_left_drive = hardwareMap.dcMotor.get("front left drive");
@@ -121,3 +121,4 @@ public class DripMobile_TeleOp extends OpMode {
         telemetry.update();
     }
 }
+

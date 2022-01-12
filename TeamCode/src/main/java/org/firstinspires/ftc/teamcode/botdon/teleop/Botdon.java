@@ -15,7 +15,7 @@ public class Botdon extends OpMode {
 
     //Variables
     BasicOpTrain dt;
-
+    
     DcMotor arm;
     DcMotor spinner;
     ServoClaw clawservo;
@@ -53,11 +53,7 @@ public class Botdon extends OpMode {
         // this.elevator = new LinearSlide(elevator_motor, 0,360);
 
         //IMPORTANT: Declare claw range constraints below
-<<<<<<< Updated upstream
-        this.clawservo = new ServoClaw(claw_servo, .25, .75);
-=======
         this.clawservo = new ServoClaw(claw_servo, 0f, .5f);
->>>>>>> Stashed changes
 
         //Telemetry B
         telemetry.addData("Ready for launch!" , "＼(≧▽≦)／");
@@ -86,7 +82,7 @@ public class Botdon extends OpMode {
         //Manage Linear Slide
 
         arm.setPower(gamepad2.left_stick_y * this.slowdownModifierp2);
-
+        
         spinner.setPower(gamepad2.right_bumper ? -1 : 0);
         //Manage Claw
 

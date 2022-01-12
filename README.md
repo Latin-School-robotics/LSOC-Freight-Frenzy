@@ -66,6 +66,19 @@ We merge code from your branch to the `main` branch using Pull Requests. To lear
 **ENSURE YOU ARE MAKING A PR TO OUR REPO AND NOT THE OFFICIAL FTC REPO**
 
 # Getting Started With FIRST Code
+
+In order to program the robot, you will need to feel comfortable with these two concepts.
+
+1. Java
+2. Object oriented programing 
+
+If you do not feel comfortable with one or both of these concepts, I'd highly recomend checking out a few tutorials before proceeding.
+You can either do a codeacademy course, or check out these two tutorials on [Java](https://www.youtube.com/watch?v=eIrMbAQSU34) and [OOP](https://www.youtube.com/watch?v=cXj1hHdMNk4)
+
+Next, follow this tutorial to learn how to use [Android Studio](https://github.com/FIRST-Tech-Challenge/FtcRobotController/wiki/Android-Studio-Tutorial)
+
+# Block Code
+
 If you are new to robotics or new to the *FIRST* Tech Challenge, then you should consider reviewing the [FTC Blocks Tutorial](https://github.com/FIRST-Tech-Challenge/FtcRobotController/wiki/Blocks-Tutorial) to get familiar with how to use the control system:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FTC Blocks Online Tutorial](https://github.com/FIRST-Tech-Challenge/FtcRobotController/wiki/Blocks-Tutorial)

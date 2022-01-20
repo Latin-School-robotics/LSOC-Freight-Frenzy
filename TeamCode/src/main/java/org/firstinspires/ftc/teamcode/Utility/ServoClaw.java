@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Utility;
 import com.qualcomm.robotcore.hardware.Servo;
 
 //class for operating claw

@@ -4,9 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.LinearSlide;
-import org.firstinspires.ftc.teamcode.ServoClaw;
+import org.firstinspires.ftc.teamcode.Utility.LinearSlide;
+import org.firstinspires.ftc.teamcode.Utility.ServoClaw;
 
 @TeleOp(name="SidBotClawTest ClawTest", group="tests")
 public class SidBotClawTest extends OpMode {
@@ -27,7 +26,7 @@ public class SidBotClawTest extends OpMode {
         DcMotor arm = hardwareMap.dcMotor.get("arm");
 
         // Init Claw Object
-        this.clawObject = new ServoClaw(claw,0.33f,1);
+        this.clawObject = new ServoClaw(claw,0,1);
 
         // Init Arm Object
         // NOTE: Arm is unrestricted
